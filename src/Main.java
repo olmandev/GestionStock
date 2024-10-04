@@ -4,23 +4,41 @@ public class Main {
     public static void main(String[] args) {
         Store store = new Store();
         // Buttons for the options
-        Object buttons[] = {"Create Product","Add Product","Sell Product"};
+        Object buttons[] = {"Create Product","Buy Product","Sell Product"};
 
         while (true) {
             int option = JOptionPane.showOptionDialog(null, "Choose a option: ", "MENU", 0,
                     1, null, buttons, buttons[0]);
 
-            if (option == 0) {
-                store.addProduct(Product.createProduct());
+            switch (option){
+                case 0:
+                    store.addProduct(Product.createProduct());
+                    break;
 
-            } else if (option == 1) {
-                JOptionPane.showInputDialog(null, "Select the product to add more units: ", "PRODUCTS LIST",
-                        1, null, store.getProducts().toArray(), null);
-            }
-            else {
-                break;
+                case 1:
+                    store.buyProduct();
+                    break;
+
+                case 2:
+                    String nameCustom = JOptionPane.showInputDialog("Enter the name of the custom please: ");
+                    int ageCustom = Integer.parseInt(JOptionPane.showInputDialog(" Enter the age of the custom please: "));
+                    boolean discount;
+                    if (ageCustom >= 60){
+                        discount = true;
+                    }
+                    else {
+                        discount = false;
+                    }
+
+                    Object productToSell = JOptionPane.showInputDialog(null,"Chosse the product",
+                            "PRODUCTS",1,null,store.getProducts().toArray(),null);
+
+                    store.showStock(productToSell);
+
+                    int quantityToSell = Integer.parseInt(JOptionPane.showInputDialog(null,
+                            "Enter the quantity to sell: "));
+                    store.sellProduct(productToSell,quantityToSell,discount);
             }
         }
-
     }
 }

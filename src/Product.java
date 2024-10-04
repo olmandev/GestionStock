@@ -71,9 +71,14 @@ public class Product {
     }
 
     // Method for update the stock when a product be sold
-    public void updateStock(int quantitySold){
-        quantityStock -= quantitySold;
+    public void updateStock(boolean isSelling, int quantity) {
+        if (isSelling) {
+            quantityStock -= quantity;
+        } else {
+            quantityStock += quantity;
+        }
     }
+
 
     public double aplyDiscount(double percentage){
         return (price * percentage / 100);
